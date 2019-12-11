@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 893085828}
   - component: {fileID: 893085829}
-  m_Layer: 0
+  - component: {fileID: 529240540}
+  m_Layer: 11
   m_Name: Trigger
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +48,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.023059493, y: -0.33108497}
   m_Size: {x: 0.69985443, y: 1.3068601}
   m_Direction: 0
+--- !u!114 &529240540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893085827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9685fb7d28136414a98ca5a7ace2e0dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &266202014098015072
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +74,7 @@ GameObject:
   - component: {fileID: 266202014098015087}
   - component: {fileID: 266202014098015083}
   - component: {fileID: 5426628132688001423}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -152,8 +165,8 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!70 &266202014098015087
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -201,10 +214,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00582c3ab1649b40a3c1e544aa44a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  jumpForce: 0
-  health: 0
-  groundCheck: {fileID: 0}
+  speed: 5
+  jumpForce: 650
+  health: 5
+  groundCheck: {fileID: 5390708579606779450}
+  attackRate: 0.5
+  spawnAttack: {fileID: 5721916707727275580}
+  attackPrefab: {fileID: 5798341272599630514, guid: 142d1c55e6b040d43afcb01b2d0b3c04,
+    type: 3}
 --- !u!1 &492533400768865358
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,7 +231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5390708579606779450}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
@@ -244,7 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5721916707727275580}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SpawnAttack
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
