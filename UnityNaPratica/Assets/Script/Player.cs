@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -23,14 +25,22 @@ public class Player : MonoBehaviour
     public float attackRate;
     public Transform spawnAttack;
     public GameObject attackPrefab;
+    public GameObject crown;
     private float nextAttack = 0f;
 
+    private CameraScript cameraScript;
+
+    public AudioClip fxHurt;
+    public AudioClip fxJump;
+    public AudioClip fxAttack;
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer> ();
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+       
+        cameraScript = GameObject.Find("Main Camera").GetComponent<CameraScript>();
     }
 
     void Flip()
@@ -49,6 +59,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Jump") && grounded)
         {
             jumping = true;
+            SoundManager.instance.PlaySound(fxJump);
         }
 
         SetAnimations();
@@ -57,11 +68,14 @@ public class Player : MonoBehaviour
         if (Input.GetButton("Fire1") && (Time.time > nextAttack))
         {
             Attack();
+            SoundManager.instance.PlaySound(fxAttack);
         }
+       
 
     }
     void FixedUpdate()
     {
+        
         //Criando o movimento a partir do Speed
         float move = Input.GetAxis("Horizontal");
         rb2d.velocity = new Vector2(move * speed, rb2d.velocity.y);
@@ -104,6 +118,7 @@ public class Player : MonoBehaviour
     IEnumerator DamageEffect()
     {
         //criar efeito de camera
+        cameraScript.ShakeCamera(0.5f, 0.1f);
 
         for (float i = 0f; i < 1f; i+= 0.1f)
         {
@@ -124,12 +139,39 @@ public class Player : MonoBehaviour
             health--;
             StartCoroutine(DamageEffect());
 
+            SoundManager.instance.PlaySound(fxHurt);
+            Hud.instance.RefreshLife(health);
+
             if (health < 1)
             {
-
+                //morreu reinicia a scena
+                KingDeath();
+                Invoke("ReloadLevel", 3f);
+                gameObject.SetActive(false);
             }
         }
         
     }
 
+    public void DamageWater()
+    {
+        health = 0;
+        Hud.instance.RefreshLife(0);
+        KingDeath();
+        Invoke("ReloadLevel", 3f);
+        gameObject.SetActive(false);
+    }
+
+    void KingDeath()
+    {
+        GameObject cloneCrown = Instantiate(crown, transform.position, Quaternion.identity);
+        Rigidbody2D rb2dCrown = cloneCrown.GetComponent<Rigidbody2D>();
+        rb2dCrown.AddForce(Vector3.up * 500);
+    }
+
+    void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+    
 }

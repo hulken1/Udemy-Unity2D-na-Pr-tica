@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Attack
+  - Coin
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -54,4 +56,10 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 3216534171
+    locked: 0
+  - name: Player
+    uniqueID: 2671026759
+    locked: 0
+  - name: Water
+    uniqueID: 515825909
     locked: 0

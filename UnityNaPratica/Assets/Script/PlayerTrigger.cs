@@ -6,6 +6,8 @@ public class PlayerTrigger : MonoBehaviour
 {
     private Player playerScript;
 
+    public AudioClip fxCoin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,17 @@ public class PlayerTrigger : MonoBehaviour
         if (col.CompareTag("Enemy"))
         {
             playerScript.DamagePlayer();
+        }
+
+        if (col.CompareTag("Water"))
+        {
+            playerScript.DamageWater();
+        }
+        if (col.CompareTag("Coin"))
+        {
+            ScoreManager.scoreManager.SetCoins();
+            SoundManager.instance.PlaySound(fxCoin);
+            Destroy(col.gameObject);
         }
     }
 }

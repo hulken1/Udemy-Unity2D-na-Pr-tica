@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9685fb7d28136414a98ca5a7ace2e0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fxCoin: {fileID: 8300000, guid: d0ba652c78647184abbf99153aa2e634, type: 3}
 --- !u!1 &266202014098015072
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 266202014098015072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.08, y: -1.65, z: 0}
-  m_LocalScale: {x: 0.977, y: 0.93, z: 1}
+  m_LocalScale: {x: 0.8866046, y: 0.8439532, z: 0.90747654}
   m_Children:
   - {fileID: 5390708579606779450}
   - {fileID: 5721916707727275580}
@@ -132,8 +133,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1623940537
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9bbcb1069bb21e040b9a6c55135b8c73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -214,14 +215,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00582c3ab1649b40a3c1e544aa44a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 650
-  health: 5
+  speed: 7
+  jumpForce: 700
+  health: 3
   groundCheck: {fileID: 5390708579606779450}
   attackRate: 0.5
   spawnAttack: {fileID: 5721916707727275580}
   attackPrefab: {fileID: 5798341272599630514, guid: 142d1c55e6b040d43afcb01b2d0b3c04,
     type: 3}
+  crown: {fileID: 8790871583777101365, guid: 686177c9b55b5e94d9c4c27953f44d07, type: 3}
+  fxHurt: {fileID: 8300000, guid: 62d680779c44aed49bdde093b22bdff3, type: 3}
+  fxJump: {fileID: 8300000, guid: 68f27ca912ed58e4f91b6d6d61ee4da7, type: 3}
+  fxAttack: {fileID: 8300000, guid: e075873c6ce82444e938da88c424d6c6, type: 3}
+  coins: 0
 --- !u!1 &492533400768865358
 GameObject:
   m_ObjectHideFlags: 0
