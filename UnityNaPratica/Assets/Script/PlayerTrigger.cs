@@ -15,12 +15,11 @@ public class PlayerTrigger : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col)
-    {
+    {      
         if (col.CompareTag("Enemy"))
         {
             playerScript.DamagePlayer();
         }
-
         if (col.CompareTag("Water"))
         {
             playerScript.DamageWater();

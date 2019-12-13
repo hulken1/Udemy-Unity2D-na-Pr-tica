@@ -25,12 +25,20 @@ public class Snake : MonoBehaviour
     void Update()
     {      
         tocheddWall = Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-
+        tocheddWall = Physics2D.Linecast(transform.position, wallCheck.position, 1 << LayerMask.NameToLayer("EnemyCollider"));
         if (tocheddWall)
         {
             Flip();
         }
 
+        RaycastHit hit = new RaycastHit();
+        if(Physics.Raycast(transform.position, Vector3.up, out hit))
+        {
+            tocheddWall = true;
+            Flip();
+        }
+       
+        transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
     }
     void FixedUpdate()
     {

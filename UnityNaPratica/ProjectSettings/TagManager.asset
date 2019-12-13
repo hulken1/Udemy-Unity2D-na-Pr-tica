@@ -8,6 +8,8 @@ TagManager:
   - Attack
   - Coin
   - Water
+  - FinishGamer
+  - EnemyCollider
   layers:
   - Default
   - TransparentFX
@@ -22,8 +24,8 @@ TagManager:
   - Enemy
   - Trigger
   - Level
-  - 
-  - 
+  - Finish
+  - EnemyCollider
   - 
   - 
   - 

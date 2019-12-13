@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
     }
     void FixedUpdate()
     {
-        
         //Criando o movimento a partir do Speed
         float move = Input.GetAxis("Horizontal");
         rb2d.velocity = new Vector2(move * speed, rb2d.velocity.y);
