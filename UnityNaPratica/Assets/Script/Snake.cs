@@ -7,12 +7,10 @@ public class Snake : MonoBehaviour
     public float speed;
     public int health;
     public Transform wallCheck;
-
     private bool facingRight = true;
 
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
-
     private bool tocheddWall = false;
     // Start is called before the first frame update
     void Start()
