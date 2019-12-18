@@ -12,11 +12,14 @@ public class Snake : MonoBehaviour
     private SpriteRenderer sprite;
     private Rigidbody2D rb2d;
     private bool tocheddWall = false;
+    private Animator anim;
+    private bool Death;
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         rb2d = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,6 +39,7 @@ public class Snake : MonoBehaviour
             Flip();
         }
        
+        
         transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
     }
     void FixedUpdate()
@@ -76,7 +80,8 @@ public class Snake : MonoBehaviour
 
         if(health < 1)
         {
-            Destroy(gameObject);
+            anim.SetTrigger("Death");
+            Destroy(gameObject, 1f);
         }
     }
 }
