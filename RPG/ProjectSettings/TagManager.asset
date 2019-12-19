@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - caixa
+  - arma
   layers:
   - Default
   - TransparentFX
@@ -13,9 +15,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - ground
+  - interacao
+  - inimigo
   - 
   - 
   - 
@@ -43,6 +45,9 @@ TagManager:
     locked: 0
   - name: paredes
     uniqueID: 2753873367
+    locked: 0
+  - name: objetosDecoracao
+    uniqueID: 2806114545
     locked: 0
   - name: Default
     uniqueID: 0

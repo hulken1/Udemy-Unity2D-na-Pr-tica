@@ -5,28 +5,46 @@ using UnityEngine;
 public class playerScript : MonoBehaviour
 {
     private Animator playerAnimator;
+    private Rigidbody2D playerRB;
+    public Transform groundCheck; //Objeto responsavel por detectar se o personagem esta encostando no chao
+    public LayerMask whatIsGround; // indicia oque é superficie para o teste do grounded
+    public Collider2D standing, crouching; // colisor empe e abaixado
 
     public bool Grounded; // Indica se está no chao ou superficie
     public int idAnimation;  //Id da animação
-    private Rigidbody2D playerRB;
-    public Transform groundCheck; //Objeto responsavel por detectar se o personagem esta encostando no chao
     private float h, v;  // VARIALVE MOVIMENTO HORIZONTAL E VERTICAL
     public float speed; // Velocidade de movimento
     public float jumpForce; // Força aplicada para gerar o pulo do personagem
     public bool LookLeft; //Olhando para esquerda
     public bool attacking; // indicar se o personagem esta atacando
-    public Collider2D standing, crouching; // colisor empe e abaixado
+
+    //Variaveis de interação com items
+    public Transform hand;
+    private Vector3 dir = Vector3.right;
+    public LayerMask interacao;
+    public GameObject objetoInteracao;
+
+    // sistema de armas
+    public GameObject[] armas;
+
     // Start is called before the first frame update
     void Start()
     {
         playerAnimator = GetComponent<Animator>(); // INICIALIZA O COMPONENT A VARIAVEL
         playerRB = GetComponent<Rigidbody2D>(); // INICIALIZA O COMPONENT A VARIAVEL
+
+        //desativar objeto arma
+        foreach(GameObject o in armas)
+        {
+            o.SetActive(false);
+        }
     }
 
     void FixedUpdate() // TAXA DE ATT FIXA DE 0.02
     {
-        Grounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f);
+        Grounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f, whatIsGround);
         playerRB.velocity = new Vector2(h * speed, playerRB.velocity.y);
+        interagir();
     }
     // Update is called once per frame
     void Update()
@@ -59,11 +77,15 @@ public class playerScript : MonoBehaviour
             idAnimation = 0;
         }
 
-        if (Input.GetButtonDown("Fire1") && v >= 0 && attacking == false)
+        if (Input.GetButtonDown("Fire1") && v >= 0 && attacking == false && objetoInteracao == null)
         {
             playerAnimator.SetTrigger("attack");
         }
-
+        // chamando funcao do script do bau para abrir e fechar, mandando um SendMessageOptions
+        if (Input.GetButtonDown("Fire1") && v >= 0 && attacking == false && objetoInteracao != null)
+        {
+            objetoInteracao.SendMessage("interacao", SendMessageOptions.DontRequireReceiver);
+        }
         if (Input.GetButtonDown("Jump") && Grounded == true && attacking == false)
         {
             playerRB.AddForce(new Vector2(0, jumpForce));
@@ -94,6 +116,8 @@ public class playerScript : MonoBehaviour
         playerAnimator.SetBool("grounded", Grounded);
         playerAnimator.SetInteger("idAnimation", idAnimation);
         playerAnimator.SetFloat("speedY", playerRB.velocity.y);
+
+        
     }
 
     void Flip()
@@ -102,6 +126,8 @@ public class playerScript : MonoBehaviour
         float x = transform.localScale.x;
         x *= -1; // inverte o sinal do scale x
         transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
+        // devinir a direçao da set Raycast
+        dir.x = x;
     }
 
     void attack(int atk)
@@ -110,10 +136,36 @@ public class playerScript : MonoBehaviour
         {
             case 0:
                 attacking = false;
+                armas[2].SetActive(false);
                 break;
             case 1:
                 attacking = true;
                 break;
         }
+    }
+    
+    void interagir()
+    {
+        Debug.DrawRay(hand.position, dir * 0.1f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(hand.position, dir, 0.1f, interacao);
+
+        if (hit)
+        {
+            objetoInteracao = hit.collider.gameObject;
+        }
+        else
+        {
+            objetoInteracao = null;
+        }
+    }
+
+    void controleArma(int id)
+    {
+        foreach (GameObject o in armas)
+        {
+            o.SetActive(false);
+        }
+
+        armas[id].SetActive(true);
     }
 }
