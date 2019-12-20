@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class infoArmas : MonoBehaviour
 {
-    public int dano;
+    public int danoMax; //dano maximo da arma
+    public int danoMin; // dano minimo da arma
+
     public int tipoDano;
 }
