@@ -239,6 +239,10 @@ MonoBehaviour:
   - Normal
   - Fogo
   - "\xC1gua"
+  fxDano:
+  - {fileID: 498322239920504237, guid: 1ce65975ca4c3bf4ba49396f1a6287e5, type: 3}
+  - {fileID: 5855801267322101717, guid: 59f5c131b8427db4fbb2c980adcc915c, type: 3}
+  - {fileID: 0}
 --- !u!1 &127657163
 GameObject:
   m_ObjectHideFlags: 0
@@ -9072,6 +9076,11 @@ PrefabInstance:
       propertyPath: danoMax
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3623070827772885699, guid: 421cbf31d31192c4a8ccd4103b76d3a3,
+        type: 3}
+      propertyPath: tipoDano
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3623070827772885706, guid: 421cbf31d31192c4a8ccd4103b76d3a3,
         type: 3}
       propertyPath: danoMin
@@ -9082,6 +9091,11 @@ PrefabInstance:
       propertyPath: danoMax
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3623070827772885706, guid: 421cbf31d31192c4a8ccd4103b76d3a3,
+        type: 3}
+      propertyPath: tipoDano
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3623070827772885707, guid: 421cbf31d31192c4a8ccd4103b76d3a3,
         type: 3}
       propertyPath: danoMin
@@ -9091,6 +9105,11 @@ PrefabInstance:
         type: 3}
       propertyPath: danoMax
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623070827772885707, guid: 421cbf31d31192c4a8ccd4103b76d3a3,
+        type: 3}
+      propertyPath: tipoDano
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3623070827850899404, guid: 421cbf31d31192c4a8ccd4103b76d3a3,
         type: 3}

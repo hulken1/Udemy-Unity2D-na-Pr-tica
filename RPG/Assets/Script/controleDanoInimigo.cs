@@ -129,6 +129,9 @@ public class controleDanoInimigo : MonoBehaviour
                     danoTemp.GetComponent<TextMesh>().text = Mathf.RoundToInt(danoTomado).ToString();
                     danoTemp.GetComponent<MeshRenderer>().sortingLayerName = "hud";
 
+                    GameObject fxTemp = Instantiate(_GameController.fxDano[tipoDano], transform.position, transform.localRotation);
+                    Destroy(fxTemp, 1f);
+
                     int forcaX = 80;
                     if (!playerEsquerda)
                     {
