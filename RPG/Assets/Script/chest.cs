@@ -8,6 +8,8 @@ public class chest : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Sprite[] imagemObjeto;
     public bool open;
+    public GameObject[] loots;
+    private bool gerouLoot;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +29,40 @@ public class chest : MonoBehaviour
             case true:
                 spriteRenderer.sprite = imagemObjeto[1];
 
-                if(_GameController == null)
+                if (_GameController == null)
                 {
                     _GameController = FindObjectOfType(typeof(_GameController)) as _GameController;
                 }
-                _GameController.teste++;
+                if (!gerouLoot)
+                {
+                    StartCoroutine("gerarLoot");
+                }
+
+
                 break;
             case false:
                 spriteRenderer.sprite = imagemObjeto[0];
                 break;
+        }
+    }
+
+    IEnumerator gerarLoot()
+    {
+        gerouLoot = true;
+        //controle de loot
+        int qtdMoedas = Random.Range(1, 10);
+        for (int l = 0; l < qtdMoedas; l++)
+        {
+            int rand = 0;
+            int idLoot = 0;
+            rand = Random.Range(0, 100);
+            if(rand >= 75)
+            {
+                idLoot = 1;
+            }
+            GameObject lootTemp = Instantiate(loots[idLoot], transform.position, transform.localRotation);
+            lootTemp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-25, 25), 50));
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }

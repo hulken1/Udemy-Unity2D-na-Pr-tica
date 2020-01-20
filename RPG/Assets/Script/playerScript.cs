@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class playerScript : MonoBehaviour
 {
+    private _GameController _GameController;
+
     private Animator playerAnimator;
     private Rigidbody2D playerRB;
     public Transform groundCheck; //Objeto responsavel por detectar se o personagem esta encostando no chao
     public LayerMask whatIsGround; // indicia oque é superficie para o teste do grounded
     public Collider2D standing, crouching; // colisor empe e abaixado
+
+    public int vidaMax, vidaAtual;
 
     public bool Grounded; // Indica se está no chao ou superficie
     public int idAnimation;  //Id da animação
@@ -30,6 +34,10 @@ public class playerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vidaAtual = vidaMax;
+
+        _GameController = FindObjectOfType(typeof(_GameController)) as _GameController;
+
         playerAnimator = GetComponent<Animator>(); // INICIALIZA O COMPONENT A VARIAVEL
         playerRB = GetComponent<Rigidbody2D>(); // INICIALIZA O COMPONENT A VARIAVEL
 
@@ -167,5 +175,16 @@ public class playerScript : MonoBehaviour
         }
 
         armas[id].SetActive(true);
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        switch (col.gameObject.tag)
+        {
+            case "coletavel":
+                col.gameObject.SendMessage("coletar", SendMessageOptions.DontRequireReceiver);
+
+            break;
+        }
     }
 }

@@ -27,9 +27,17 @@ public class controleDanoInimigo : MonoBehaviour
     public bool olhandoEsquerda, playerEsquerda;
     private bool getHit; // indica se tomou hit
 
+    [Header("Configuração de chao")]
+    public Transform groundCheck;
+    public LayerMask whatIsGround;
+
+    [Header("Configuracao de Loot")]
+    public GameObject loots;
+
     public Color[] characterColor;
     private bool death; // indica se esta morto
     // Start is called before the first frame update
+
     void Start()
     {
         
@@ -122,7 +130,7 @@ public class controleDanoInimigo : MonoBehaviour
                     {
                         animator.SetInteger("idAnimation", 3);
                         death = true;
-                        Destroy(this.gameObject, 2f);
+                        StartCoroutine("loot");
                     }
 
                     GameObject danoTemp = Instantiate(danoTxtPrefab, transform.position, transform.localRotation);
@@ -156,6 +164,26 @@ public class controleDanoInimigo : MonoBehaviour
         transform.localScale = new Vector3(x, transform.localScale.y, transform.localScale.z);
         barrasVida.transform.localScale = new Vector3(x, barrasVida.transform.localScale.y, barrasVida.transform.localScale.z);
 
+    }
+    IEnumerator loot()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject fxMorte = Instantiate(_GameController.fxMorte, groundCheck.position, transform.localRotation);
+        yield return new WaitForSeconds(0.5f);
+        sRender.enabled = false;
+
+        //controle de loot
+        int qtdMoedas = Random.Range(1, 5);
+        for(int l = 0; l < qtdMoedas; l++)
+        {
+            GameObject lootTemp = Instantiate(loots, transform.position, transform.localRotation);
+            lootTemp.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-25, 25), 50));
+            yield return new WaitForSeconds(0.1f);
+        }
+        
+        yield return new WaitForSeconds(0.7f);
+        Destroy(fxMorte);
+        Destroy(this.gameObject);
     }
     IEnumerator invuneravel()
     {
