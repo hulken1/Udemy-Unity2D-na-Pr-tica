@@ -12,6 +12,7 @@ public class playerScript : MonoBehaviour
     public LayerMask whatIsGround; // indicia oque é superficie para o teste do grounded
     public Collider2D standing, crouching; // colisor empe e abaixado
 
+    private SpriteRenderer sRender;
     public int vidaMax, vidaAtual;
 
     public bool Grounded; // Indica se está no chao ou superficie
@@ -31,11 +32,14 @@ public class playerScript : MonoBehaviour
     // sistema de armas
     public GameObject[] armas;
 
+
+    public GameObject balaoAlerta;
     // Start is called before the first frame update
+
     void Start()
     {
         vidaAtual = vidaMax;
-
+        sRender = GetComponent<SpriteRenderer>();
         _GameController = FindObjectOfType(typeof(_GameController)) as _GameController;
 
         playerAnimator = GetComponent<Animator>(); // INICIALIZA O COMPONENT A VARIAVEL
@@ -93,6 +97,7 @@ public class playerScript : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && v >= 0 && attacking == false && objetoInteracao != null)
         {
             objetoInteracao.SendMessage("interacao", SendMessageOptions.DontRequireReceiver);
+
         }
         if (Input.GetButtonDown("Jump") && Grounded == true && attacking == false)
         {
@@ -160,11 +165,15 @@ public class playerScript : MonoBehaviour
         if (hit)
         {
             objetoInteracao = hit.collider.gameObject;
+            balaoAlerta.SetActive(true);
         }
         else
         {
             objetoInteracao = null;
+            balaoAlerta.SetActive(false);
         }
+
+        
     }
 
     void controleArma(int id)
@@ -185,6 +194,15 @@ public class playerScript : MonoBehaviour
                 col.gameObject.SendMessage("coletar", SendMessageOptions.DontRequireReceiver);
 
             break;
+        }
+    }
+
+    public void changeMaterial(Material novoMaterial)
+    {
+        sRender.material = novoMaterial;
+        foreach(GameObject o in armas)
+        {
+            o.GetComponent<SpriteRenderer>().material = novoMaterial;
         }
     }
 }

@@ -15,7 +15,6 @@ public class chest : MonoBehaviour
     void Start()
     {
         //FindObjectOfType vai achar apenas o primeiro item que tem esta tag
-        _GameController = FindObjectOfType(typeof(_GameController)) as _GameController;
 
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -23,26 +22,12 @@ public class chest : MonoBehaviour
     public void interacao()
     {
         // abrindo e fechando o bau
-        open = !open;
-        switch (open)
+        if(open == false)
         {
-            case true:
-                spriteRenderer.sprite = imagemObjeto[1];
-
-                if (_GameController == null)
-                {
-                    _GameController = FindObjectOfType(typeof(_GameController)) as _GameController;
-                }
-                if (!gerouLoot)
-                {
-                    StartCoroutine("gerarLoot");
-                }
-
-
-                break;
-            case false:
-                spriteRenderer.sprite = imagemObjeto[0];
-                break;
+            open = true;
+            spriteRenderer.sprite = imagemObjeto[1];
+            StartCoroutine("gerarLoot");
+            GetComponent<Collider2D>().enabled = false;
         }
     }
 

@@ -14,9 +14,12 @@ public class _GameController : MonoBehaviour
 
     public TextMeshProUGUI goldTxt;
     // Start is called before the first frame update
+    private fade fade;
+
     void Start()
     {
-        
+        fade = FindObjectOfType(typeof(fade)) as fade;
+        fade.fadeOut();
     }
 
     // Update is called once per frame
